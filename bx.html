@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=0.5,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="app-mobile-web-app-capable" content="yes">
+<title>首页</title>
+<link href="styles/common.css" rel="stylesheet" type="text/css">
+<link href="styles/weui.css" rel="stylesheet" type="text/css">
+<link href="styles/device.css" rel="stylesheet" type="text/css">
+</head>
+
+<body class="yellowbg">
+<!--<div class="header-bar">
+    <div class="title">首页</div>
+</div>-->
+<section id="main" class="main">
+    <div class="index-fridge">
+        <img src="images/index-fridge.png"/>
+    </div>
+    <div class="index-icons">
+        <img src="images/index-icons.png"/>
+    </div>
+    <div class="index-fridge-control">
+        <ul>
+            <li>
+                3<i>℃</i>
+                <p>冷藏区</p>
+            </li>
+            <li class="line"></li>
+            <li>
+                5<i>℃</i>
+                <p>变温区</p>
+            </li>
+            <li class="line"></li>
+            <li>
+                -10<i>℃</i>
+                <p>冷冻区</p>
+            </li>
+        </ul>
+        <p class="clearfix">馨厨智能冰箱体验</p>
+    </div>
+    <div class="index-button">
+        <a class="btn-href" id="indexhref">绑定冰箱设备</a>
+    </div>
+</section>
+<script src="scripts/jquery-1.8.3.min.js"></script>
+<script src="scripts/jsobox.js"></script>
+<script src="scripts/requestHelper.js"></script>
+<script src="scripts/foodservice.js"></script>
+<script src="scripts/simpScroller-min.js"></script>
+<script>
+    $apiservice.getApiAccesstoken();
+    $loginservice.getopenid();
+    var dropload = $('#main').dropload({
+        isFixed: true,
+        scrollArea: window,
+        domUp: {                                                            // 上方DOM
+            domClass: 'dropload-up',
+            domRefresh: '<div class="dropload-refresh" style="background: #FFFFFF; margin-top: -10px;"><img src="images/img_foodadmin_loading.gif"/></div>',
+            domUpdate: '<div class="dropload-update" style="background: #FFFFFF; margin-top: -10px;"><img src="images/img_foodadmin_loading.gif"/></div>',
+            domLoad: '<div class="dropload-load" style="background: #FFFFFF; margin-top: -10px;"><img src="images/img_foodadmin_loading.gif"/></div>'
+        },
+        loadUpFn: function (me) {
+            location.reload();
+        }
+    });
+</script>
+<input type="hidden" id="YZHD_APPID"/>
+<script>
+    var dom=document.getElementById("YZHD_APPID");
+    var phoneNumber;
+    var user = JSON.parse(window.sessionStorage.getItem('user'));
+    //console.log(user);
+    if(user){
+        phoneNumber = user.phone;
+    }
+    var userAgent = navigator.userAgent;
+    var isAndroid = userAgent.indexOf('Android') > -1 || userAgent.indexOf('Linux') > -1;
+    var isIOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+    if (isAndroid) {
+        dom.value ="MB-XXCGZH-0000";
+    }
+    if (isIOS) {
+        dom.value ="MB-XXCGZH-0000";
+    }
+</script>
+<script type="text/javascript">
+    (function() {
+        var report= document.createElement('script');
+        var pro = /file/.test(document.location.protocol)?'http:': document.location.protocol;
+        report.type = 'text/javascript'; report.async = true;
+        report.src = pro+'//resource.haier.net/saas/report.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(report, s);
+    })();
+</script>
+</body>
+</html>

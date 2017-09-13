@@ -1,0 +1,410 @@
+@charset "utf-8";
+/* 菜谱页面 */
+
+html{width: 100%; height: 100%;}
+body{ background: #FFFFFF;}
+
+img{ width: 100%;}
+.btn-href{ display: block; width: 15rem; height: 3rem; text-align: center; line-height: 2.8rem; color: #FFFFFF; font-size: 1.2rem;}
+/* index header */
+.yellowbg{ width: 100%; height:100%; background: rgba(236,144,41,.95) url("../images/index-bg.jpg") center no-repeat; background-size: 100% 100%; z-index: 1;}
+.index-fridge{ width: 6rem; margin: 0 auto; padding-top: 1.5rem;}
+.index-icons{ width: 12rem; margin: 0 auto 1.5rem;}
+.index-fridge-control{  width: 14rem; margin: 0 auto .5rem; color: #FFFFFF; text-align: center; line-height: 1.5rem; opacity: .9;}
+.index-fridge-control ul{ height: 3rem; margin-bottom: .5rem;}
+.index-fridge-control ul li{ float: left; width: 37.5%; font-size: 1.4rem; opacity: .9;}
+.index-fridge-control ul li:first-child{ width: 28%; padding-right: 2%;}
+.index-fridge-control ul li:last-child{ width: 28%; padding-left: 2%;}
+.index-fridge-control ul li.line{ display: inline-block; width: 1px; height: 3rem; border-left:1px solid #FFFFFF;}
+.index-fridge-control ul li i{ font-size: .5rem; font-style: normal; vertical-align: text-top;}
+.index-fridge-control ul li p{ font-size: 1rem; opacity: 5;}
+.index-button .btn-href{ margin: 3rem auto 0; width: 16rem; background: url("../images/btn-bg.png") center no-repeat; background-size: contain;}
+
+.device-choose-icon{ width: 12rem; margin:0 auto 5rem; padding-top: 4rem;}
+.device-choose-button .btn-href{ margin: 0 auto 2rem; border:1px solid #FFFFFF; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;}
+
+/* header-bar */
+.header-bar { width: 100%; height: 3rem; background: #fff; text-align: center;}
+.back,.searchbtn { position: absolute; width: 32px; height: 3rem; left:1rem; top:.7rem; cursor: pointer; }
+.back img,.searchbtn img { width: auto; height: 1.5rem; vertical-align: middle; }
+.title { position: absolute; left:50%; margin-left: -25%; display: inline-block; width: 50%; height: 100%; line-height: 3rem; color: #2a2a2a; font-size: 1.2rem; }
+.next { cursor: pointer; display: block; position: absolute; right: 15px; top: 0.8rem; z-index: 1; color: #2a2a2a; font-size: 1.1rem; }
+.searchbtn{ right: 1rem; left:auto; cursor: pointer;}
+/*注册登录*/
+.login-form{ border-top: 1px solid #bababa; overflow: hidden;}
+.login-form .form-group{ padding: 10px 0; line-height: 2rem; border-bottom: 1px solid #d6d6d6; overflow: hidden;}
+.login-form .form-group .form-label{ display: inline-block; width: 25%; float: left; color: #212121; text-align: center; font-size: 1.2rem; border-right: 1px solid #d6d6d6;}
+.login-form .form-group .form-input{ width: 72%; float: left; margin-left: 2.2%;}
+.login-form .form-group.smscode .form-input input[type=text]{ width: 45%;}
+.login-form .form-group.smscode .btn-regcode{ width: 40%; float: right; font-size: .9rem; color: #ff792f;}
+.login-form .xieyi{ margin: 2rem 0 .5rem; color: #999; font-size: .9rem; text-align: center;}
+.demo--label{display:inline-block}
+.demo--radio{display:none}
+.demo--radioInput{background-color:#fff;border:1px solid rgba(0,0,0,0.15);border-radius:100%;display:inline-block;height:16px;margin-right:5px;margin-top:-1px;vertical-align:middle;width:16px;line-height:1}
+.demo--radio:checked + .demo--radioInput:after{background-color:#57ad68;border-radius:100%;content:"";display:inline-block;height:12px;margin:2px;width:12px}
+.demo--checkbox.demo--radioInput,.demo--radio:checked + .demo--checkbox.demo--radioInput:after{border-radius:0}
+.login-button .btn-href{ margin:0 auto; width: 18rem; height: 2.5rem; line-height: 2.5rem; background: #ff792f; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;}
+
+/*虚拟、公共冰箱*/
+.cdevice-fridge{ position: relative; height:10rem; background: #ffb144 url("../images/fridge-bg.png") repeat-x; overflow: hidden;}
+.vdevice-fridge{ position: relative; height:12rem; background: #ffb144 url("../images/fridge-bg.png") repeat-x; overflow: hidden;}
+.vdevice-fridge p{color: #212121; font-size: 1.1rem; text-align: center; padding: .5rem 0; line-height:1.2rem;}
+/*公共冰箱*/
+.vdevice-fridge img{ width:30%; margin: 0 auto; }
+.cdevice-fridge .fridge{ position: absolute; bottom:0; left:5%; width: 30%; height: 9rem;}
+.cdevice-fridge .text{ position: absolute; top:1rem; left:40%; width: 60%;}
+.cdevice-fridge .text h4,.cdevice-fridge .text .fridge-no{ color: #212121; font-size: 1rem;}
+.cdevice-fridge .text h4 span{ color: #FFFFFF; font-size: .9rem; padding-left: 10px;}
+.cdevice-fridge .text .device-status{ margin: .5rem 0;}
+.cdevice-fridge .text .device-status a{ display: inline-block; padding: 1px 15px; margin-right: 10px; color: #FFFFFF; font-size: .8rem; background: url("../images/refrigeratorControl/status01.png") no-repeat; background-size: 100% 100%;}
+.cdevice-fridge .text .device-status a:last-child{ background-image: url("../images/refrigeratorControl/status02.png");}
+.cdevice-fridge .device-control{ margin: 0 auto .5rem; color: #FFFFFF; text-align: center; line-height: 1.5rem;}
+.cdevice-fridge .device-control ul{ height: 3rem; margin-bottom: .5rem;}
+.cdevice-fridge .device-control ul li{ float: left; width: 37.5%; font-size: 1.5rem;}
+.cdevice-fridge .device-control ul li:first-child{ width: 28%; padding-right: 2%;}
+.cdevice-fridge .device-control ul li:last-child{ width: 28%; padding-left: 2%;}
+.cdevice-fridge .device-control ul li.line{ display: inline-block; width: 1px; height: 3rem; border-left:1px solid #b17129;}
+.cdevice-fridge .device-control ul li i{ font-size: .5rem; font-style: normal; vertical-align: text-top;}
+.cdevice-fridge .device-control ul li p{ font-size: .9rem;}
+.cdevice-fridge-notice { margin: 2%; overflow: hidden;}
+
+.cdevice-fridge-notice .notice-title{ height: 1.2rem; margin-top: .5rem; border-left: 3px solid #fc9f28; padding-left: 10px; line-height: 1.2rem;}
+.cdevice-fridge-notice .notice-title span{font-size: .9rem; color: #666666; margin-right:3px;}
+.cdevice-fridge-notice .notice-title span.status0 i,
+.cdevice-fridge-notice .notice-title span.status1 i,
+.cdevice-fridge-notice .notice-title span.status2 i,
+.cdevice-fridge-notice .notice-title span.status3 i{ display: inline-block; width: 8px; height: 8px; margin-right: 5px; vertical-align: middle; background: #36d65b; -webkit-border-radius: 50%; -moz-border-radius: 50%; border-radius: 50%;}
+.cdevice-fridge-notice .notice-title span.status1 i{ background-color: #1d831d;}
+.cdevice-fridge-notice .notice-title span.status2 i{ background-color: #feb226;}
+.cdevice-fridge-notice .notice-title span.status3 i{ background-color: #f76719;}
+.cdevice-fridge-notice .shicai{height:12rem;}
+
+.shicai{ overflow: hidden; font-size: .9rem;}
+.shicai ul li{ position: relative; width: 25%; padding: 1rem 0 0; float: left; color: #8f8f8f; line-height: 1.2rem; text-align: center;}
+.shicai ul li .img{ height: 4rem;}
+.shicai ul li .img img{ width: auto; height: 4rem; margin: 0 auto;}
+.shicai ul li a .name{ color: #666666;font-size:.8rem;}
+.shicai ul li span{font-size:.8rem;}
+.shicai ul li .progress{ position: relative; width: 55%; height: 4px; margin:5px auto; background: #797979; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;}
+.shicai ul li .progress .progress-line{position: absolute; left:0; top:0; width: 45%; height: 4px; background: #36d65b; -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px;}
+.shicai ul li.xinxian .name span{ color: #36d65b;}
+.shicai ul li.xinxian .progress-line{ background: #36d65b;}
+.shicai ul li.zhengchang .name span{ color: #1d831d;}
+.shicai ul li.zhengchang .progress-line{ background: #1d831d;}
+.shicai ul li.kuaiguoqi .name span{ color: #feb226;}
+.shicai ul li.kuaiguoqi .progress-line{ background: #feb226;}
+.shicai ul li.guoqi .name span{ color: #f76719;}
+.shicai ul li.guoqi .progress-line{ background: #f76719;}
+
+.cdevice-fridge-notice .cdevice-button .btn-href{ width: 45%; margin: 1rem 2.5% 0; float: left; background: #ffa000; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;}
+
+/*温度控制*/
+.dialog { display: block;}
+.dialog .mask{ position: fixed; width: 100%; height: 100%; top:0; left:0;z-index: 1000; background: rgba(0,0,0,.5);}
+.dialog-modal{ position: fixed; z-index: 5000; width: 85%; top:50%; left:50%;-webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); border-radius: 3px; background: #f5f5f5; overflow: hidden;}
+.dialog-modal.white{ background: #ffffff;}
+.dialog-modal .dialog-bd{ padding: 1.2rem 20px .5rem;}
+.dialog-modal .dialog-ft{ padding: .5rem 20px 1rem; overflow: hidden;}
+.dialog-modal .dialog-ft a{ display: block; float: left; width: 40%;height: 3rem; line-height: 3rem;
+    color: #FFFFFF;
+    text-align: center;
+    text-decoration: none;
+    background: #595959;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;}
+.dialog-modal .dialog-ft .dialog-btn-ok{ float: right; background: #fdb131;}
+
+.vfridge-slide{padding: 0 0 1rem; background: #f5f5f5; border-bottom: 1px solid #bababa;}
+.vfridge-slide p{ padding-top: 4rem; color: #bababa; font-size: .9rem; text-align: center;}
+.basemsg{ padding-bottom: 1rem; color:#666666; text-align:left; line-height: 2.5rem;}
+.basemsg span{ color: #b8b8b8; padding-left: 1rem;}
+.basemsg small { float: right; color: #bababa;}
+.scale_wrap .scale_btn_l, .scale_wrap .scale_btn_r {
+    display: inline-block;
+    width: 15%;
+    height: 2rem;
+    cursor: pointer;;
+}
+.scale_wrap .scale_btn_l img, .scale_wrap .scale_btn_r img {
+    width: 1rem;
+    height: 1rem;
+    margin: .5rem auto;
+    padding: .5rem;
+    background: #e8e8e8;
+    border-radius: 50%;
+}
+.scale_panel {
+    width: 70%;
+    position: relative;
+}
+.scale_panel span.fl, .scale_panel span.fr {
+    position: absolute;
+    top: 2rem;
+    left: 0;
+    color: #bababa;
+    font-size: .9rem;
+}
+.scale_panel span.fr {
+    right: 0;
+    left: auto;
+}
+.scale {
+    position: absolute;
+    top: 1.5rem;
+    background-color: #e8e8e8;
+    width: 100%;
+    height: 5px;
+    font-size: 0px;
+    border-radius: 5px;
+}
+.scale span.msg {
+    background: url(../images/refrigeratorControl/icon_control_temperature.png) no-repeat;
+    width: 1.8rem;
+    height: 2rem;
+    position: absolute;
+    left: -.8rem;
+    top: -2rem;
+    color: #ffa308;
+    font-size: .9rem;
+    text-align: center;
+    font-family:Arial;
+    line-height: 1.5rem;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+.scale .btn {
+    position: absolute;
+    left: -1px;
+    top: -4px;
+    width: .3rem;
+    height: .8rem;
+    background: url("../images/refrigeratorControl/scale-bar.png");
+    background-size: 100%;
+    cursor: pointer;
+}
+.scale .scaleprogress {
+    background-color: #ffa308;
+    width: 0px;
+    position: absolute;
+    height: 5px;
+    width: 20%;
+    left: 0;
+    bottom: 0;
+}
+
+/*虚拟冰箱*/
+.vdevice-control{ overflow: hidden;}
+.vdevice-control ul{ overflow: hidden; margin-right: -1px;}
+.vdevice-control ul li{ float: left; width: 33%; padding: 2rem 0; font-size: .9rem; text-align: center; line-height: 1rem; border: 1px solid #e8e8e8; border-width: 0 1px 1px 0;}
+.vdevice-control ul li:nth-child(3n + 0){ border-left: 0;}
+.vdevice-control ul li p.control-icon{ width: 32px; margin: 0 auto 5px;}
+.vdevice-control ul li p small{ font-size: .8rem; color: #999999;}
+.vdevice-control ul li.on small{ color: #ffb144;}
+
+/*食材管理-首页*/
+.food-tab-nav{ height: 3rem; border:1px solid #bababa; border-width: 1px 0; background: #ffffff;}
+.food-tab-nav ul { width: 100%;}
+.food-tab-nav ul li{ float: left; width: 25%; padding: .75rem 0; line-height: 1.5rem; text-align: center;}
+.food-tab-nav ul li a{ display: inline-block; width: 100%; color: #424242; font-size: 1rem; line-height: 1.5rem; text-align: center; border-left:1px solid #e8e8e8;}
+.food-tab-nav ul li:hover,.food-tab-nav ul li.active,.food-tab-nav ul li:hover a,.food-tab-nav ul li.active a{ color: #ffffff; background: #ffa000; border:0; cursor: pointer;}
+.foodlist{ }
+.food-tab-con ul{display: none;}
+.foodlist .shicai ul { margin-right: -.6%;}
+.foodlist .shicai ul li{ width: 24.6%;font-size:.8rem; border:1px solid #e8e8e8; border-width: 0 1px 1px 0; padding-bottom: .5rem; overflow: hidden;}
+.foodlist .shicai ul li span{font-size:.8rem;}
+.foodlist ul.nofood{ background: #f5f5f5;}
+.foodlist ul.nofood li{border:0; width: 100%; height: 100%;}
+.foodlist ul.nofood li img{ width: 65%; margin: 0 auto;}
+
+.food-action { height: 4.5rem; color: #666666; text-align: center; line-height: 4.5rem; border-top:1px solid #bababa; border-bottom:1px solid #bababa;}
+.food-action .food-count{ width: 24.8%; float: left; border-right:1px solid #bababa;}
+.food-action .food-add-plus{ position: relative; width: 49.7%; height: 4.5rem; float: left; border-right:1px solid #bababa;}
+.food-action .food-add-plus a{ position: absolute; left:50%; margin-left: -2rem; top:2.2rem; display: block; width: 4rem; height: 4rem; text-indent: -9999px; background: url("../images/btn-add.png") no-repeat; background-size: contain;}
+.food-action .food-btn{ width: 24%; float: right;}
+.food-action .food-btn a{ color: #666666; font-size: .9rem;}
+.food-action .food-btn .btn-delete{ display: block; width: 32px; height: 32px; margin: 25% auto 0; }
+
+.input-radio-check{ display: none; position: absolute; right: 3px; top:3px; width: 2rem; height: 2rem; background: url("../images/foodadmin_deletefood_normal@2x.png") center center no-repeat; background-size: 100%; vertical-align: middle;}
+.input-radio-check input[type=radio],.input-radio-check input[type=checkbox]{ position: absolute; left:0; top:0; width:2rem; height:2rem;visibility: hidden; }
+.input-radio-check.checked{ background-image: url("../images/foodadmin_deletefood_selected@2x.png");}
+
+/*图表*/
+.food-chart{ margin-top: 2rem;}
+.food-chart .chart-title{ position: relative; height: 1rem; margin-left:2%; font-size: 1.2rem; line-height: 1rem; border-left: 3px solid #fc9f28; padding-left: 10px;}
+.food-chart .chart-title:after{ display: block; position: absolute; width: 80%; top:.5rem; left:7rem; content: ''; border-top:1px solid #e8e8e8;}
+.food-chart .chart-intro{ margin: .5rem 2%;}
+.food-chart .chart-intro .fl{ font-size: .9rem;}
+.food-chart .chart-intro .fl p i{display: inline-block; width: 8px; height: 8px; margin-right: 5px; vertical-align: middle; background: #18b7b4; -webkit-border-radius: 50%; -moz-border-radius: 50%; border-radius: 50%}
+.food-chart .chart-intro .fl p:last-child i{ background-color: #e96e4d;}
+.food-chart .chart-intro .fr{ font-size: 1rem; color: #18b7b4;}
+.food-chart .chart-intro .fr span{ font-size: 1.5rem; }
+.chart-img {}
+.chart-nav li{ float: left; width: 25%; color: #666666; line-height: 1.5rem; text-align: center;}
+.chart-nav li.active{ color: #fc9f28;}
+
+/*食材详情*/
+.fooddetail .detail-img{ color: #2a2a2a; font-size: 1.3rem; text-align: center; line-height: 3rem; border-bottom: 1px solid #bababa; overflow: hidden;}
+.fooddetail .detail-img img{ width: auto; height: 9rem; margin: .5rem auto 0;}
+.fooddetail .detal-base{ background: #f5f5f5; padding: 1rem 0; overflow: hidden; }
+.fooddetail .detal-base dl{ width: 100%; line-height: 4rem; background: #ffffff; border-bottom: 1px solid #bababa; overflow: hidden;}
+.fooddetail .detal-base dl:first-child{ border-top:1px solid #bababa;}
+.fooddetail .detal-base dl dt{float: left; width: 40%; padding-left: 5%; color: #666666; text-align: left;}
+.fooddetail .detal-base dl dd{float: left; width: 55%; color: #424242; font-size: 1.4rem;}
+.fooddetail .detail-content{ border-top:1px solid #bababa; overflow: hidden;}
+.fooddetail .detail-content .detail-title{ position: relative; height: 1rem; margin:5% 0 5% 2%; color: #ffa000; font-size: 1rem; line-height: 1rem; border-left: 3px solid #ffa000; padding-left: 10px;}
+.fooddetail .detail-content .detail-title:after{ display: block; position: absolute; width: 80%; top:.5rem; left:5rem; content: ''; border-top:1px solid #e8e8e8;}
+.fooddetail .detail-content .content{ padding: 0 1rem 1rem; color: #424242; font-size: 1rem;}
+
+/*食材录入*/
+.foodinput{width: 50rem;}
+.foodinput ul li{ width: 7rem;}
+
+.publicfood-tab-con ul{display: none;}
+.publicfood-tab-con .shicai {height:19rem; }
+
+.food-input-bar{ position: fixed; left:0; bottom:0; right:0;}
+.food-input-bar .food-item{ padding: 1rem 0 0 1rem; background: #474747; overflow: hidden;}
+.food-input-bar .food-item p{ color: #9b9b9b; font-size: .9rem; line-height: 1.7rem; text-align: center;}
+.food-input-bar .food-item ul{ height: 4.3rem;}
+.food-input-bar .food-item ul li{ position: relative; float: left; width: 4.2rem; height: 4.2rem; margin-left: .5rem;}
+.food-input-bar .food-item ul li p{ position: absolute; left: 0; bottom: 0; right: 0; background: rgba(155,155,155,.7); color: #ffffff; font-size: .9rem; line-height: 1.5rem; text-align: center;}
+.food-input-bar .food-item ul li:last-child{ width: 4rem; height: 4rem; margin-top: .2rem; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; background: none; border:1px dashed #9b9b9b;}
+.food-input-bar .food-tool{ background:#323232; padding: 1rem 0 1rem .5rem; overflow: hidden;}
+.food-input-bar .food-tool a{ display: inline-block; width: 31%; height: 2.5rem;  color:#ffffff;line-height: 2.5rem; text-align: center; font-size: .8rem; border-right: 1px solid #666666;}
+.food-input-bar .food-tool a img{ display: inline-block; width: 16px; vertical-align:middle;}
+.food-input-bar .food-tool a big{ font-size: .9rem;}
+.food-input-bar .food-tool a:last-child{ border-right: 0;}
+.food-input-bar .food-tool.addbj a{ display: block; width: 100%; color: #b16108; text-align: center;}
+
+.food-item2 ul li .img{ position: absolute; left:0; bottom:0; width: 4rem; height: 4rem; background: #ffffff; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px;}
+.food-item2 ul li .img img{ width: auto; height: 4rem; margin: 0 auto; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px;}
+.food-item2 ul li label.food-dele{ position: absolute; right: -.2rem; top:0; z-index: 9; width: 1rem; height: 1rem; background: url("../images/food_dele@3x.png") no-repeat; background-size: cover;}
+.food-item2 ul li p{ width: 4rem; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;}
+
+/*食材保质期编辑*/
+.foodddayedit{ margin-bottom: 2rem; border-bottom: 1px solid #bababa;}
+.foodddayedit .img{ width: 5rem;  padding-bottom: 2rem;}
+.foodddayedit .img { margin:0 auto;}
+.foodddayedit dl{  height: 4rem; line-height: 4rem;  text-align: center;border-top: 1px solid #bababa;}
+.foodddayedit dl dt{ float: left; width: 30%; padding-left: 5%; color: #666666; text-align: left;}
+.foodddayedit dl dd{ float: left; width: 65%; color: #424242; font-size: 1.2rem;}
+.foodddayedit dl.date{ height: 6rem;  overflow: hidden;}
+.foodddayedit dl.date dt{ line-height: 6rem;}
+.foodddayedit dl.date dd{ position: relative;padding: .5rem 0;}
+.dw-inline .dw-persp{ position: absolute; left:0; top:50%; margin-top: -85px; }
+.dw-inline .dwfl{ min-width: inherit !important;}
+.mbsc-android-holo-light .dwwr{ background: #ffffff;}
+.mbsc-android-holo-light .dwwo{ background: none;}
+.mbsc-android-holo-light .dw-li { color: #e8e8e8;}
+.mbsc-android-holo-light .dw-li[aria-selected=true]{color: #424242;}
+.mbsc-android-holo .dwwol{  border-color: #666666; border-width: 1px;}
+.freshday .freshday1,.freshday .freshday2{ position: absolute; left:20%; width: 40%; top:0; bottom:0;}
+.freshday .freshday2{ left:45%;}
+.freshday .dw-persp{ margin-top: -55px;}
+.freshday .dwwr{ min-width: inherit !important;}
+
+/* search 食材搜索*/
+.search{ position: absolute; left:3.5rem; width: 80%; height:2rem; margin-top: .5rem; background:#dddddd; border-radius:3px;}
+.search .searchIco,.search .searchdel{ position: absolute; left:.5rem; height: 1.2rem; margin-top: .4rem;}
+.search .searchdel{ right:.5rem; left:auto;}
+.search .searchIco img,.search .searchdel img{ width: auto; height:100%; }
+.search .searchInput{ position: absolute; left:2.2rem; width: 75%; height: 2rem;}
+.search .searchInput input[type=text]{ width: 100%; height: 2rem; color: #424242; line-height: 2rem; padding: 0;}
+/*搜索食材-结果*/
+.foodsearch{ border-top:1px solid #bababa;}
+.foodsearch .shicai ul { margin-right: -.6%;}
+.foodsearch .shicai ul li{ width: 24.6%; border:1px solid #e8e8e8; border-width: 0 1px 1px 0; padding-bottom: .5rem;}
+.noresult{position: absolute; left:0; top:3rem; bottom: 0; right: 0; background: #f5f5f5;}
+.noresult-notice{ display: none;}
+.noresult-notice img{ width: 9rem; margin:5rem auto 1rem;}
+.noresult-notice p{ color: #424242; font-size: 1.2rem; text-align: center; line-height: 2rem;}
+.noresult-notice .search-button .btn-href{ width: 50%; margin: 7rem auto 0; background: #ffa000; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;}
+/*自定义食材*/
+.foodadd{ border-top:1px solid #bababa;}
+.foodadd .food-img{ padding-bottom: 3rem; color: #2a2a2a; font-size: 1rem; text-align: center; line-height: 2rem; border-bottom: 1px solid #bababa; overflow: hidden;}
+.foodadd .food-img img{ width: auto; height: 9rem; margin: .5rem auto 0;}
+.file-wrap { display: block; position: relative; width: 3rem; height: 3rem; margin:3rem auto 0; background: url("../images/自定义添加.png") no-repeat; background-size: contain; cursor: pointer; }
+.file-wrap .file { position: absolute; top: 0; left: 0; width: 100%; height: 100%; filter: alpha(opacity=0); -moz-opacity: .0; opacity: 0.0; cursor: pointer; z-index: 99; }
+.file-wrap .cover { display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 98; text-align:center; background:#f2f2f2; overflow: hidden; }
+.file-wrap .cover img { display:inline; width:100%; height:100%; }
+
+.foodadd .food-base{ background: #f5f5f5; padding: 1rem 0; overflow: hidden; }
+.foodadd .food-base dl{ width: 100%; line-height: 4rem; background: #ffffff; border-bottom: 1px solid #bababa; overflow: hidden;}
+.foodadd .food-base dl:first-child{ border-top:1px solid #bababa;}
+.foodadd .food-base dl dt{float: left; width: 30%; padding-left: 5%; color: #666666; text-align: left;}
+.foodadd .food-base dl dd{float: left; width: 65%;}
+.foodadd .food-base dl dd input[type=text]{ float: left; width: 70%; height: 4rem; color: #424242; font-size: 1.2rem; line-height: 4rem; padding: 0;}
+.foodadd .food-base dl dd a { float: right; display: inline-block; height: 1rem; margin: 1.5rem 1rem 0 0;}
+.foodadd .food-base dl dd a img{ width: auto; height: 100%;}
+.foodadd-button .btn-href{ width: 50%; margin: 7rem auto 0; background: #ffa000; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;}
+
+
+/*media 自适应*/
+@media screen and (min-width: 320px){
+    .index-fridge{ width: 5rem;}
+    .index-icons{ width: 11rem;}
+    .index-button .btn-href{ margin-top: 2rem; width: 16rem;}
+
+    .device-choose-icon{ width: 12rem; margin-bottom:5rem;}
+}
+@media screen and (min-width: 360px){
+    .index-fridge{ width: 6.5rem;}
+    .index-icons{ width: 13rem;}
+    .index-button .btn-href{ margin-top: 3rem; width: 16rem;}
+
+    .device-choose-icon{ width: 14rem; margin-bottom:7rem;}
+}
+@media screen and (max-height:480px){
+    .index-fridge{ width: 6.2rem;}
+	.index-button .btn-href{ margin-top: 1rem; width: 16rem;}
+}
+@media screen and (min-height:481px){
+	.index-fridge{ width: 8.2rem;}
+	.index-button .btn-href{ margin-top: 2rem; width: 16rem;}
+
+    .cdevice-fridge-notice .shicai{height:15rem;}
+}
+
+@media screen and (min-height:569px){
+	.index-fridge{ width: 9.6rem;}
+	.index-button .btn-href{ margin-top: 3rem; width: 16rem;}
+
+    .publicfood-tab-con .shicai.publicfood{ height:25rem;}
+}
+/*dropload*/
+.dropload-up,
+.dropload-down { position: relative; height: 0; overflow: hidden; font-size: 12px; /* 开启硬件加速 */
+-webkit-transform: translateZ(0); transform: translateZ(0); }
+.dropload-down { height: 50px; }
+.dropload-refresh,
+.dropload-update,
+.dropload-load,
+.dropload-noData { height: 50px; line-height: 50px; text-align: center; }
+.dropload-load .loading { display: inline-block; height: 15px; width: 15px; border-radius: 100%; margin: 6px; border: 2px solid #666; border-bottom-color: transparent; vertical-align: middle; -webkit-animation: rotate 0.75s linear infinite; animation: rotate 0.75s linear infinite; }
+.dropload-refresh img,
+.dropload-update img,
+.dropload-load img{ height:2.5rem; width:auto; margin:.5rem auto;}
+@-webkit-keyframes rotate {  0% {
+ -webkit-transform: rotate(0deg);
+}
+ 50% {
+ -webkit-transform: rotate(180deg);
+}
+ 100% {
+ -webkit-transform: rotate(360deg);
+}
+}
+@keyframes rotate {  0% {
+ transform: rotate(0deg);
+}
+ 50% {
+ transform: rotate(180deg);
+}
+ 100% {
+ transform: rotate(360deg);
+}
+}
+
+

@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="all"/>
+    <meta http-equiv="imagetoolbar" content="no"/>
+    <meta http-equiv="pragma" Content="no-cach"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="HandheldFriendly" content="true"/>
+    <title>添加食材库</title>
+    <link href="styles/common.css" rel="stylesheet" type="text/css">
+    <link href="styles/weui.css" rel="stylesheet" type="text/css">
+    <link href="styles/device.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!--<div class="header-bar">
+    <div class="back"><a href="javascript:history.back()"><img src="images/back.png"/> </a></div>
+    <div class="title">添加食材库</div>
+</div>-->
+<section class="main">
+    <div class="foodadd">
+        <div class="food-img">
+            <div class="file-wrap">
+                <input id="filefood" type="file" class="file" onChange="changeFile($(this))" />
+                <div class="cover"><img id="picfood" src=""/></div>
+            </div>
+            <p>添加食材图片</p>
+        </div>
+        <div class="food-base">
+            <dl>
+                <dt>食材名称</dt>
+                <dd><input id="foodname" type="text" maxlength="20" placeholder="填写食材名称"/><a onclick="$('#foodname').val('')"><img src="images/删除@3x.png"/> </a></dd>
+            </dl>
+            <dl>
+                <dt>保质期</dt>
+                <dd><input id="foodday" type="text" readonly placeholder="单位为天"/><a><img src="images/edit_item@2x.png"/></a></dd>
+            </dl>
+        </div>
+        <div class="foodadd-button">
+            <a class="btn-href">添加到食材库</a>
+        </div>
+    </div>
+</section>
+<script src="scripts/jquery-1.8.3.min.js"></script>
+<script src="scripts/md5.js"></script>
+<script src="scripts/jsobox.js"></script>
+<script src="scripts/requestHelper.js"></script>
+<script src="scripts/fileupload.js"></script>
+<script>
+
+    /*file 图片回显*/
+    function changeFile($this){
+        if(!$file.checkImg($this.val())){
+            alert('上传图片格式不正确！');
+            return;
+        }
+        $file.resizeFile($this.get(0).files[0]).then(function(result){
+            $('.file-wrap').css({'width':'5.5rem','height':'5.5rem'});
+            $('.food-img p').remove();
+            $this.parent().find('.cover img').attr('src',result).parent().show();
+        });
+    }
+</script>
+<input type="hidden" id="YZHD_APPID"/>
+<script>
+    var dom=document.getElementById("YZHD_APPID");
+    var phoneNumber;
+    var user = window.sessionStorage.getItem('user');
+    if(user){
+        phoneNumber = user.phone;
+    }
+    var userAgent = navigator.userAgent;
+    var isAndroid = userAgent.indexOf('Android') > -1 || userAgent.indexOf('Linux') > -1;
+    var isIOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+    if (isAndroid) {
+        dom.value ="MB-XXCGZH-0000";
+    }
+    if (isIOS) {
+        dom.value ="MB-XXCGZH-0000";
+    }
+</script>
+<script type="text/javascript">
+    (function() {
+        var report= document.createElement('script');
+        var pro = /file/.test(document.location.protocol)?'http:': document.location.protocol;
+        report.type = 'text/javascript'; report.async = true;
+        report.src = pro+'//resource.haier.net/saas/report.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(report, s);
+    })();
+</script>
+</body>
+</html>

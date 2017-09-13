@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="all"/>
+    <meta http-equiv="imagetoolbar" content="no"/>
+    <meta http-equiv="pragma" Content="no-cach"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="HandheldFriendly" content="true"/>
+    <title>食材详情</title>
+    <link href="styles/common.css" rel="stylesheet" type="text/css">
+    <link href="styles/weui.css" rel="stylesheet" type="text/css">
+    <link href="styles/device.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="header-bar">
+    <div class="back"><a href="javascript:history.back()"><img src="images/back.png"/> </a></div>
+    <div class="title">食材详情</div>
+</div>
+<section class="main fooddetail">
+    <!-- <div class="detail-img">
+        <img src="images/shicai.jpg"/>
+        <p>青椒</p>
+    </div>
+    <div class="detal-base">
+        <dl>
+            <dt>所在温区</dt>
+            <dd>变温区</dd>
+        </dl>
+        <dl>
+            <dt>距离过期时间</dt>
+            <dd>7天</dd>
+        </dl>
+    </div>
+    <div class="detail-content">
+        <div class="detail-title">食材好处</div>
+        <div class="content">
+            1.青椒富维生素B、维生素C和胡萝卜素，具有促进消 化，加快脂肪代谢等功效。<br/>
+            2.青椒的水分含量高（74%~94%），热量低，但随着它的成熟水分含量会降低，热量会增高。
+        </div>
+        <div class="detail-title">食材说明</div>
+        <div class="content">
+            1.青椒富维生素B、维生素C和胡萝卜素，具有促进消 化，加快脂肪代谢等功效。<br/>
+            2.青椒的水分含量高（74%~94%），热量低，但随着它的成熟水分含量会降低，热量会增高。
+        </div>
+    </div> -->
+</section>
+<script src="scripts/jquery-1.8.3.min.js"></script>
+<script src="scripts/md5.js"></script>
+<script src="scripts/jsobox.js"></script>
+<script src="scripts/requestHelper.js"></script>
+<script src="scripts/foodservicebj.js"></script>
+<input type="hidden" id="YZHD_APPID"/>
+<script>
+    var dom=document.getElementById("YZHD_APPID");
+    var user = JSON.parse(window.sessionStorage.getItem('user'));
+    if(user){
+        phoneNumber = user.phone;
+    }
+    var userAgent = navigator.userAgent;
+    var isAndroid = userAgent.indexOf('Android') > -1 || userAgent.indexOf('Linux') > -1;
+    var isIOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+    if (isAndroid) {
+        dom.value ="MB-XXCGZH-0000";
+    }
+    if (isIOS) {
+        dom.value ="MB-XXCGZH-0000";
+    }
+</script>
+<script type="text/javascript">
+    (function() {
+        var report= document.createElement('script');
+        var pro = /file/.test(document.location.protocol)?'http:': document.location.protocol;
+        report.type = 'text/javascript'; report.async = true;
+        report.src = pro+'//resource.haier.net/saas/report.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(report, s);
+    })();
+</script>
+<script>
+        var fridgeid = '201612011726098645';
+        var userid = '761607301828480002';
+        var food_definition_id=$url.GetQueryString('food_definition_id');
+        var fridge_food_id=$url.GetQueryString('fridge_food_id');
+        var request={
+                "fridge_id":fridgeid,
+                "user_id":userid,
+                fridge_food_id:fridge_food_id,
+                food_definition_1d:food_definition_id
+        }
+
+        $ajax.Post('https://iot.onehaier.com/v2/food/food.detail.get', JSON.stringify(createRequestData(request)), function ($data) {
+                            var food=$data.data.food_info;
+                            $('.fooddetail').empty();
+                            var html='';
+                             html+=
+                                '<div class="detail-img"><img src='+food.food_image+'><p>'+food.food_name+'</p></div>'+
+                                '<div class="detal-base"><dl><dt>所在温区</dt><dd>变温区</dd><dl><dt>距离过期时间</dt><dd>'
+                                +food.food_overdue_day+
+                                '天</dd></div>'+'<div class="detail-content"><div class="detail-title">食材说明</div><div class="content">'
+                                +food.food_effect+
+                                '</div><div class="detail-title">食材好处</div><div class="content">'+food.food_nutrition+
+                                '</div><div class="detail-title">食材禁忌</div><div class="content">'+food.food_taboo+'</div></div>'
+
+                            $('.fooddetail').html(html);
+                            })
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

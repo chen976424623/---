@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="all"/>
+    <meta http-equiv="imagetoolbar" content="no"/>
+    <meta http-equiv="pragma" Content="no-cache"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="HandheldFriendly" content="true"/>
+    <title>设备管理</title>
+    <link href="styles/common.css" rel="stylesheet" type="text/css">
+    <link href="styles/weui.css" rel="stylesheet" type="text/css">
+    <link href="styles/device.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!--<div class="header-bar">
+    <div class="back"><a href="javascript:history.back()"><img src="images/back.png"/> </a></div>
+    <div class="title">设备管理</div>
+</div>-->
+<section class="main">
+    <div class="vdevice-fridge">
+        <p>海尔冰箱<br/>BCD-610WDCZU1</p>
+        <img src="images/refrigeratorControl/virtualBridge2.png"/>
+    </div>
+    <div class="vdevice-control">
+        <ul>
+            <li onclick="changeTemper($(this),1)">
+                <p class="control-icon"><img
+                        src="images/refrigeratorControl/collectionOffImages/virtual-collection-normal1@3x.png"/></p>
+
+                <p>冷藏区 <span>3</span>℃</p>
+            </li>
+            <li onclick="changeTemper($(this),2)">
+                <p class="control-icon"><img
+                        src="images/refrigeratorControl/collectionOffImages/virtual-collection-normal2@3x.png"/></p>
+
+                <p>变温区 <span>-5</span>℃</p>
+            </li>
+            <li onclick="changeTemper($(this),3)">
+                <p class="control-icon"><img
+                        src="images/refrigeratorControl/collectionOffImages/virtual-collection-normal3@3x.png"/></p>
+
+                <p>冷冻区 <span>-22</span>℃</p>
+            </li>
+            <li onclick="toggleOffon($(this))">
+                <p class="control-icon"><img src="images/refrigeratorControl/collectionOffImages/sudongoff@3x.png"/></p>
+
+                <p>速冻<br/>
+                    <small>开启</small>
+                </p>
+            </li>
+            <li onclick="toggleOffon($(this))">
+                <p class="control-icon"><img src="images/refrigeratorControl/collectionOffImages/sulengoff@3x.png"/></p>
+
+                <p>速冷<br/>
+                    <small>开启</small>
+                </p>
+            </li>
+            <li onclick="toggleOffon($(this))">
+                <p class="control-icon"><img src="images/refrigeratorControl/collectionOffImages/zhinengoff@3x.png"/></p>
+
+                <p>智能<br/>
+                    <small>开启</small>
+                </p>
+            </li>
+            <li onclick="toggleOffon($(this))">
+                <p class="control-icon"><img src="images/refrigeratorControl/collectionOffImages/jiarioff@3x.png"/></p>
+
+                <p>假日<br/>
+                    <small>开启</small>
+                </p>
+            </li>
+            <li onclick="toggleOffon($(this))">
+                <p class="control-icon"><img src="images/refrigeratorControl/collectionOffImages/zhinenglengxianfangoff@3x.png"/></p>
+
+                <p>智能冷鲜坊<br/>
+                    <small>开启</small>
+                </p>
+            </li>
+        </ul>
+    </div>
+</section>
+<script src="scripts/jquery-1.8.3.min.js"></script>
+<script src="scripts/md5.js"></script>
+<script src="scripts/jsobox.js"></script>
+<script src="scripts/requestHelper.js"></script>
+<script>
+    //冷藏 1-7 冷冻 -23 - -15 变温 -18 - 5
+    scale = function (btn, bar, title, from, to, initnum) {
+        this.plus = $('.scale_btn_l a');
+        this.add = $('.scale_btn_r a');
+        this.btn = document.getElementById(btn);
+        this.bar = document.getElementById(bar);
+        this.title = document.getElementById(title);
+        this.step = this.bar.getElementsByTagName("DIV")[0];
+        this.from = from;
+        this.to = to;
+        this.initnum = initnum;
+        this.init();
+    };
+    var length = 0;
+    scale.prototype = {
+        init: function () {
+            var f = this, g = document, b = window, m = Math;
+            $('.scale_panel .fl').html(f.from + '℃');
+            $('.scale_panel .fr').html(f.to + '℃');
+            $('.basemsg span').html(f.initnum + '℃');
+
+            if (f.from) {
+                length = 100 / (f.to - f.from);
+                var lengthinit = f.to - f.initnum;
+                var offsetleft = (f.bar.clientWidth / (f.to - f.from)) * (Math.abs(f.to - f.from) - Math.abs(lengthinit)) + length;
+
+                this.title.innerHTML = this.initnum;
+                f.btn.style.left = offsetleft + 'px';
+                this.step.style.width = offsetleft + 'px';
+            }
+			
+			f.btn.addEventListener('touchstart', function(event) { 
+				var x = event.targetTouches[0].pageX;
+                var l = this.offsetLeft;
+                var max = f.bar.offsetWidth - this.offsetWidth;
+				g.addEventListener('touchmove',function(_event){
+					var thisX = _event.targetTouches[0].pageX;
+                    var to = m.min(max, m.max(-2, l + (thisX - x)));
+                    if (to > length) {
+                        to += length;
+                    }
+					if(to > f.bar.offsetWidth){
+						f.btn.style.left = f.bar.offsetWidth + 'px';
+                    	f.ondrag(m.round(m.max(0, to / max) * 100), f.bar.offsetWidth);
+					}else{
+						f.btn.style.left = to + 'px';
+                    	f.ondrag(m.round(m.max(0, to / max) * 100), to);
+					}				
+                    
+                    b.getSelection ? b.getSelection().removeAllRanges() : g.selection.empty();
+				});    
+			}, false);
+            /*f.btn.touchstart = function (e) {
+                var x = (e || b.event).clientX;
+                var l = this.offsetLeft;
+                var max = f.bar.offsetWidth - this.offsetWidth;
+                g.touchmove = function (e) {
+                    var thisX = (e || b.event).clientX;
+                    var to = m.min(max, m.max(-2, l + (thisX - x)));
+                    if (to > length) {
+                        to += length;
+                    }
+                    f.btn.style.left = to + 'px';
+                    f.ondrag(m.round(m.max(0, to / max) * 100), to);
+                    b.getSelection ? b.getSelection().removeAllRanges() : g.selection.empty();
+                };
+                g.touchend = new Function('this.touchmove=null');
+            };*/
+
+            //手动控制
+            f.plus.on('click', function () {
+                var currentNum = parseInt(f.title.innerHTML);
+                if (currentNum > f.from) {
+                    var lengthinit = f.to - (currentNum - 1);
+                    var offsetleft = (f.bar.clientWidth / (f.to - f.from)) * (Math.abs(f.to - f.from) - Math.abs(lengthinit)) + length;
+
+                    f.title.innerHTML = currentNum - 1;
+                    $('.basemsg span').html((currentNum - 1) + '℃');
+                    if ((currentNum - 1) == f.from) {
+                        f.btn.style.left = 0 + 'px';
+                        f.step.style.width = 0 + 'px';
+                    } else {
+                        f.btn.style.left = offsetleft + 'px';
+                        f.step.style.width = offsetleft + 'px';
+                    }
+                }
+            });
+            f.add.on('click', function () {
+                var currentNum = parseInt(f.title.innerHTML);
+                if (currentNum < f.to) {
+                    var lengthinit = f.to - (currentNum + 1);
+                    var offsetleft = (f.bar.clientWidth / (f.to - f.from)) * (Math.abs(f.to - f.from) - Math.abs(lengthinit)) + length;
+
+                    f.title.innerHTML = currentNum + 1;
+                    $('.basemsg span').html((currentNum + 1) + '℃');
+                    if ((currentNum + 1) == f.to) {
+                        f.btn.style.left = f.bar.clientWidth + 'px';
+                        f.step.style.width = f.bar.clientWidth + 'px';
+                    } else {
+                        f.btn.style.left = offsetleft + 'px';
+                        f.step.style.width = offsetleft + 'px';
+                    }
+                }
+            });
+        },
+        ondrag: function (pos, x) {
+            var num = parseInt(pos / length) + 1;
+            var num1 = 0;
+            if (this.from < 0) {
+                num1 = this.from + (num - 1);
+            } else {
+                num1 = num;
+            }
+            this.step.style.width = Math.max(0, x) + 'px';
+            this.title.innerHTML = num1;
+            $('.basemsg span').html(num1 + '℃');
+        }
+    }
+</script>
+<script>
+    //开启关闭
+    function toggleOffon($this) {
+        var $img = $this.find('p.control-icon img');
+        var $imgsrc = $img.attr('src');
+        if ($this.hasClass('on')) {
+            //关闭
+            $this.removeClass('on');
+            $img.attr('src', $imgsrc.replace('on@3x', 'off@3x').replace('collectionOnImages', 'collectionOffImages'));
+        } else {
+            //开启
+            $this.addClass('on');
+            $img.attr('src', $imgsrc.replace('off@3x', 'on@3x').replace('collectionOffImages', 'collectionOnImages'));
+        }
+    }
+    //冰箱温度控制
+    //new scale('btn', 'bar', 'title', -23, -15, -13);
+    function changeTemper($this, $type) {
+        $('.dialog').remove();
+        var num = $this.find('p span').html();
+        if ($type == 1) {
+            //冷藏区
+			cangshiname = '冷藏区';
+        	$('.main').append(dialogModal('冷藏区'));
+            new scale('btn', 'bar', 'title', 1, 7, num);
+        } else if ($type == 2) {
+            //变温区
+        	$('.main').append(dialogModal('变温区'));
+            new scale('btn', 'bar', 'title', -18, 5, num);
+        } else if ($type == 3) {
+            //冷冻区
+        	$('.main').append(dialogModal('冷冻区'));
+            new scale('btn', 'bar', 'title', -23, -15, num);
+        }
+        $('.dialog').find('.dialog-btn-ok').on('click', function () {
+            $this.find('p span').html($('.basemsg span').html().replace('℃', ''));
+            $('.dialog').remove();
+        });
+    }
+	function dialogModal($name){
+		var htmlstr = '<div class="dialog">' +
+            '        <div class="mask"></div>' +
+            '        <div class="dialog-modal">' +
+            '            <div class="dialog-bd">' +
+            '                <div class="vfridge-slide">' +
+            '                    <div class="basemsg">' + $name + '<span>-20℃</span>' +
+            '                        <small>实时温度</small>' +
+            '                    </div>' +
+            '                    <div class="scale_wrap">' +
+            '                        <div class="scale_btn_l fl"><a><img src="images/refrigeratorControl/icon-plusDevice@3x.png"></a></div>' +
+            '                        <div class="scale_panel fl">' +
+            '                            <span class="fl">-23℃</span>' +
+            '                            <div class="scale" id="bar">' +
+            '                                <div id="scaleprogress" name="scaleprogress" class="scaleprogress"></div>' +
+            '                                <div id="btn" class="btn">' +
+            '                                    <span id="title" class="msg">-23</span>' +
+            '                                </div>' +
+            '                            </div>' +
+            '                            <span class="fr">-15℃</span>' +
+            '                        </div>' +
+            '                        <div class="scale_btn_r fr"><a><img src="images/refrigeratorControl/icon-addDevice@3x.png"></a></div>' +
+            '                    </div>' +
+            '                    <p>设置温度</p>' +
+            '                </div>' +
+            '            </div>' +
+            '            <div class="dialog-ft">' +
+            '                <a class="dialog-btn-cancel" onclick="$(\'.dialog\').remove();changge = null;">取消</a>' +
+            '                <a class="dialog-btn-ok">确定</a>' +
+            '            </div>' +
+            '        </div>' +
+            '</div>';
+		return htmlstr;
+	}
+    
+</script>
+<input type="hidden" id="YZHD_APPID"/>
+<script>
+    var dom=document.getElementById("YZHD_APPID");
+    var phoneNumber;
+    var user = JSON.parse(window.sessionStorage.getItem('user'));
+    if(user){
+        phoneNumber = user.phone;
+    }
+    var userAgent = navigator.userAgent;
+    var isAndroid = userAgent.indexOf('Android') > -1 || userAgent.indexOf('Linux') > -1;
+    var isIOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+    if (isAndroid) {
+        dom.value ="MB-XXCGZH-0000";
+    }
+    if (isIOS) {
+        dom.value ="MB-XXCGZH-0000";
+    }
+</script>
+<script type="text/javascript">
+    (function() {
+        var report= document.createElement('script');
+        var pro = /file/.test(document.location.protocol)?'http:': document.location.protocol;
+        report.type = 'text/javascript'; report.async = true;
+        report.src = pro+'//resource.haier.net/saas/report.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(report, s);
+    })();
+</script>
+</body>
+</html>

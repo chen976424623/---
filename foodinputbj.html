@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="all"/>
+<meta http-equiv="imagetoolbar" content="no"/>
+<meta http-equiv="pragma" Content="no-cache"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta name="format-detection" content="telephone=no"/>
+<meta name="HandheldFriendly" content="true"/>
+<title>食材录入</title>
+<link href="styles/common.css" rel="stylesheet" type="text/css">
+<link href="styles/mobiscroll-2.13.2.full.min.css" rel="stylesheet" type="text/css">
+<link href="styles/weui.css" rel="stylesheet" type="text/css">
+<link href="styles/device.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<section id="main">
+	<section id="foodinput">
+    <div class="header-bar">
+      <div class="title">食材录入</div>
+      <div class="searchbtn"><a onclick="showSearch()"><img src="images/searchicon@3x.png"/> </a> </div>
+    </div>
+    <div class="food-tab-nav">
+      <section class="foodinput" style="width: 100rem;">
+        <ul>
+          <!--<li class="active" onclick="$foodservice.togglefoodcataloglist(1,$(this))"><a>蔬菜</a></li>
+        <li onclick="$foodservice.togglefoodcataloglist(2,$(this))"><a>水果</a></li>
+        <li onclick="$foodservice.togglefoodcataloglist(3,$(this))"><a>肉类水产</a></li>
+        <li onclick="$foodservice.togglefoodcataloglist(4,$(this))"><a>豆制品与菌藻</a></li>
+        <li onclick="$foodservice.togglefoodcataloglist(5,$(this))"><a>饮料及其他</a></li>-->
+        </ul>
+      </section>
+    </div>
+    <section class="main" style="padding-bottom: 11rem;">
+      <div class="foodlist publicfood-tab-con clearfix">
+        <div class="shicai publicfood">
+          <section class="pbfood">
+            <!--<ul class="nofood">
+              <li><img src="images/img_foodadmin_loading.gif"/> </li>
+            </ul>-->
+          </section>
+        </div>
+      </div>
+      <div class="food-input-bar">
+        <div class="food-item">
+          <section class="food-item2">
+            <ul>
+              <li></li>
+            </ul>
+          </section>
+          <p>点击食材可进行编辑</p>
+        </div>
+        <div class="food-tool addbj">
+            <a onclick="$foodservice.batchfridgefood(1,'add')">+ 添加</a>
+        </div>
+      </div>
+    </section>
+    <div class="dialog" style="display: none;">
+      <div class="mask"></div>
+      <div class="dialog-modal white">
+        <div class="dialog-bd">
+          <div class="foodddayedit">
+            <div class="img"><img id="changelifeimg" src="images/shicai.jpg"/></div>
+            <dl>
+              <dt>食材名称</dt>
+              <dd>
+                <label id="changelifename" class="changelifename"></label>
+              </dd>
+            </dl>
+            <dl class="date">
+              <dt>生产日期</dt>
+              <dd>
+                <input value="" class="" readonly name="appDate" id="appDate" type="text">
+              </dd>
+            </dl>
+            <dl class="date freshday">
+              <dt>保质期</dt>
+              <dd> <span class="freshday1">
+                <ul id="freshdy1">
+                  <li>01</li>
+                  <li>02</li>
+                  <li>03</li>
+                  <li>04</li>
+                  <li>05</li>
+                  <li>06</li>
+                </ul>
+                </span> <span class="freshday2">
+                <ul id="freshdy2">
+                  <li>天</li>
+                  <li>月</li>
+                  <li>年</li>
+                </ul>
+                </span> </dd>
+            </dl>
+          </div>
+        </div>
+        <div class="dialog-ft"> <a class="dialog-btn-cancel" onclick="$('.dialog').hide();">取消</a> <a class="dialog-btn-ok" onclick="$foodservice.setshelflife()">确定</a> </div>
+      </div>
+    </div>
+  </section>
+    <section id="foodsearch" style="display: none;">
+          <div class="header-bar">
+            <div class="back"><a onclick="$('#foodsearch').hide();$('#foodinput').show();"><img src="images/back.png"/> </a></div>
+            <div class="search">
+              <div class="searchIco"><img src="images/searchicon2@3x.png"/> </div>
+              <div class="searchInput">
+                <input type="text" id="foodname" placeholder="请输入食材名" maxlength="20" oninput="$foodservice.searchpublickfood($(this).val())" onBlur="$foodservice.searchpublickfood($(this).val())"/>
+              </div>
+              <div class="searchdel" onclick="$('#foodname').val('')"><img src="images/del@3x.png"/> </div>
+            </div>
+          </div>
+          <section class="main">
+            <div class="foodsearch">
+              <div class="shicai"> </div>
+              <div class="noresult-notice"> <img src="images/food_null@3x.png"/>
+                <p>食材库中暂无此食材</p>
+                <!--<div class="search-button">
+                            <a class="btn-href" href="foodadd.html">添加自定义食材</a>
+                        </div>--> 
+              </div>
+            </div>
+          </section>
+        </section>
+</section>
+<script src="scripts/jquery-1.8.3.min.js"></script> 
+<script src="scripts/md5.js"></script> 
+<script src="scripts/jsobox.js"></script> 
+<script src="scripts/requestHelper.js"></script> 
+<script src="scripts/foodservicebj.js"></script>
+<script src="scripts/mobiscroll-2.13.2.full.min.js"></script>
+<script src="scripts/simpScroller-min.js"></script>
+</body>
+<script>
+    $foodservice.publicfoodlist();
+    var dropload = $('#main').dropload({
+        scrollArea: window,
+        domUp : {                                                            // 上方DOM
+            domClass   : 'dropload-up',
+            domRefresh : '<div class="dropload-refresh"><img src="images/img_foodadmin_loading.gif"/></div>',
+            domUpdate  : '<div class="dropload-update"><img src="images/img_foodadmin_loading.gif"/></div>',
+            domLoad    : '<div class="dropload-load"><img src="images/img_foodadmin_loading.gif"/></div>'
+        },
+        loadUpFn:function(e){
+            location.reload();
+        }
+    });
+    $(function(){
+    	if (window.addEventListener) {
+			simpScroller(document.querySelector(".food-item2"), {
+				verticalScroll: false,
+				horizontalScroll: true,
+				hideScrollBar: true
+			});	
+    	}
+    });
+    function showSearch(){
+        $('#foodsearch').show();
+        $('#foodinput').hide();
+        $('#foodname').val('');
+        $('.noresult-notice').hide();
+        $('.foodsearch .shicai ul').empty();	
+    }	
+</script>
+<input type="hidden" id="YZHD_APPID"/>
+<script>
+    var dom=document.getElementById("YZHD_APPID");
+    var phoneNumber;
+    var user = JSON.parse(window.sessionStorage.getItem('user'));
+    if(user){
+        phoneNumber = user.phone;
+    }
+    var userAgent = navigator.userAgent;
+    var isAndroid = userAgent.indexOf('Android') > -1 || userAgent.indexOf('Linux') > -1;
+    var isIOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+    if (isAndroid) {
+        dom.value ="MB-XXCGZH-0000";
+    }
+    if (isIOS) {
+        dom.value ="MB-XXCGZH-0000";
+    }
+</script>
+<script type="text/javascript">
+    (function() {
+        var report= document.createElement('script');
+        var pro = /file/.test(document.location.protocol)?'http:': document.location.protocol;
+        report.type = 'text/javascript'; report.async = true;
+        report.src = pro+'//resource.haier.net/saas/report.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(report, s);
+    })();
+</script>
+</html>

@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="all"/>
+    <meta http-equiv="imagetoolbar" content="no"/>
+    <meta http-equiv="pragma" Content="no-cache"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="HandheldFriendly" content="true"/>
+    <title>设备管理</title>
+    <link href="styles/common.css" rel="stylesheet" type="text/css">
+    <link href="styles/weui.css" rel="stylesheet" type="text/css">
+    <link href="styles/device.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<section id="main" class="main">
+    <div class="cdevice-fridge">
+        <div class="fridge"><img src="images/refrigeratorControl/virtualBridge2.png"/></div>
+        <div class="text">
+            <h4>海尔冰箱 <span><img src="images/posi@3x.png"
+                                style="width: 12px; display: inline-block; vertical-align: text-bottom;"/>
+        <label
+                id="dingwei">上海</label>
+        </span></h4>
+
+            <div class="fridgeno">BCD-610WDCZU1</div>
+            <div class="device-status"><a>在线</a></div>
+            <div class="device-control">
+                <ul>
+                    <li> 3<i>℃</i>
+
+                        <p>冷藏区</p>
+                    </li>
+                    <li class="line"></li>
+                    <li> 5<i>℃</i>
+
+                        <p>变温区</p>
+                    </li>
+                    <li class="line"></li>
+                    <li> -18<i>℃</i>
+
+                        <p>冷冻区</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="cdevice-fridge-notice clearfix">
+        <div class="notice-title">过期提醒&nbsp;&nbsp;&nbsp;&nbsp; <span class="status0"><i>&nbsp;</i>新鲜</span><span
+                class="status1"><i>&nbsp;</i>正常</span><span class="status2"><i>&nbsp;</i>快过期</span><span
+                class="status3"><i>&nbsp;</i>过期</span></div>
+        <div class="shicai">
+            <ul>
+            </ul>
+        </div>
+        <div class="cdevice-button"><a class="btn-href" href="devicechoose.html">设备体验</a> <a class="btn-href"
+                                                                                             href="foodadmin.html">食材管理</a>
+        </div>
+    </div>
+</section>
+<script src="scripts/jquery-1.8.3.min.js"></script>
+<script src="scripts/md5.js"></script>
+<script src="scripts/jsobox.js"></script>
+<script src="scripts/requestHelper.js"></script>
+<script src="scripts/foodservice.js"></script>
+<script src="scripts/simpScroller-min.js"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=GLuN5UKveY6zLeBQHC5tpBLY"></script>
+<script>
+    var um_location = new BMap.Geolocation();
+    um_location.getCurrentPosition(function (r) {
+        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+            var geo = new BMap.Geocoder();
+            geo.getLocation(r.point, function ($ret) {
+                $('#dingwei').html($ret.addressComponents.city.replace('市', ''));
+            })
+        }
+        else {
+            $('#dingwei').html('上海');
+        }
+    }, {enableHighAccuracy: false});
+
+    $foodservice.foodindex();
+    $(function () {
+        if (window.addEventListener) {
+            simpScroller(document.querySelector(".shicai"), {
+                verticalScroll: true,
+                horizontalScroll: false,
+                hideScrollBar: false,
+                onScrollStart: function (e) {
+                    dropload.lock('up');
+                },
+                onScroll: function (e) {
+                    dropload.lock('up');
+                },
+                onScrollEnd: function () {
+                    dropload.unlock();
+                }
+            });
+        }
+        var dropload = $('#main').dropload({
+            isFixed: true,
+            scrollArea: window,
+            domUp: {                                                            // 上方DOM
+                domClass: 'dropload-up',
+                domRefresh: '<div class="dropload-refresh"><img src="images/img_foodadmin_loading.gif"/></div>',
+                domUpdate: '<div class="dropload-update"><img src="images/img_foodadmin_loading.gif"/></div>',
+                domLoad: '<div class="dropload-load"><img src="images/img_foodadmin_loading.gif"/></div>'
+            },
+            loadUpFn: function (me) {
+                location.reload();
+            }
+        });
+    });
+
+</script>
+<input type="hidden" id="YZHD_APPID"/>
+<script>
+    var dom=document.getElementById("YZHD_APPID");
+    var phoneNumber;
+    var user = JSON.parse(window.sessionStorage.getItem('user'));
+    if(user){
+        phoneNumber = user.phone;
+        $('.cdevice-button a').each(function(){
+            $(this).attr('href',$(this).attr('href')+'?phoneNumber='+user.phone+'#');
+        });
+    }
+    var userAgent = navigator.userAgent;
+    var isAndroid = userAgent.indexOf('Android') > -1 || userAgent.indexOf('Linux') > -1;
+    var isIOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+    if (isAndroid) {
+        dom.value ="MB-XXCGZH-0000";
+    }
+    if (isIOS) {
+        dom.value ="MB-XXCGZH-0000";
+    }
+</script>
+<script type="text/javascript">
+    (function() {
+        var report= document.createElement('script');
+        var pro = /file/.test(document.location.protocol)?'http:': document.location.protocol;
+        report.type = 'text/javascript'; report.async = true;
+        report.src = pro+'//resource.haier.net/saas/report.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(report, s);
+    })();
+</script>
+</body>
+</html>

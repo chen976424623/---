@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta name="robots" content="all"/>
+    <meta http-equiv="imagetoolbar" content="no"/>
+    <meta http-equiv="pragma" Content="no-cach"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="HandheldFriendly" content="true"/>
+	<title>Document</title>
+	<link rel="stylesheet" href="styles/aui2.02.css">
+	<style>
+		#sck img{
+			width: 100%;
+			height: 100%;
+			margin:0 auto;
+		}
+
+
+
+
+	</style>
+</head>
+<body>
+<div class="aui-tab" id="tab">
+    <div class="aui-tab-item aui-active">全部</div>
+    <div class="aui-tab-item"><div></div>冷藏室</div>
+    <div class="aui-tab-item">冷冻室</div>
+</div>
+<div id="sck">
+	<img src="images/bg_foodadmin_nofood@3x.png" height="335" width="551" alt="">
+</div>
+
+</body>
+<script>
+	var tablist=document.getElementById('tab');
+	console.log(tablist)
+	var tabli=tablist.getElementsByClassName('aui-tab-item');
+
+	for(var i=0;i<tabli.length;i++){
+			tabli[i].onclick=function(){
+				for(var j=0;j<tabli.length;j++){
+					tabli[j].className='aui-tab-item'	
+				}
+				this.className='aui-tab-item aui-active';
+			}
+
+
+	}
+
+
+
+
+
+
+
+
+</script>
+
+
+</html>

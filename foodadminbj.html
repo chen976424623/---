@@ -1,0 +1,148 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="all"/>
+    <meta http-equiv="imagetoolbar" content="no"/>
+    <meta http-equiv="pragma" Content="no-cache"/>
+    <meta name="viewport"
+          content="width=device-width,height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="HandheldFriendly" content="true"/>
+    <title>食材管理</title>
+    <link href="styles/common.css" rel="stylesheet" type="text/css">
+    <link href="styles/weui.css" rel="stylesheet" type="text/css">
+    <link href="styles/device.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<section id="main" class="main">
+    <!--<div class="food-tab-nav">
+        <ul>
+            <li class="active" onclick="$foodservice.togglefoodlist(-1,$(this))"><a>全部</a></li>
+            <li onclick="$foodservice.togglefoodlist(1,$(this))"><a>冷藏区</a></li>
+            <li onclick="$foodservice.togglefoodlist(4,$(this))"><a>变温区</a></li>
+            <li onclick="$foodservice.togglefoodlist(2,$(this))"><a>冷冻区</a></li>
+        </ul>
+    </div>-->
+    <div class="foodlist food-tab-con clearfix">
+        <div class="shicai foods" style="height:15rem;">
+            <section class="fooditem">
+                <!--<ul class="nofood">
+                    <li><img src="images/img_foodadmin_loading.gif"/> </li>
+                </ul>-->
+            </section>
+        </div>
+        <div class="food-action">
+            <div class="food-count">共<label id="foodcount">0</label>种</div>
+            <div class="food-add-plus">
+                <a href="foodinputbj.html">点击添加食材</a>
+            </div>
+            <div class="food-btn"><a class="btn-delete" onclick="$foodservice.toggleEditmodal($(this))"><img
+                    src="images/foodadmin_garbage@2x.png"></a></div>
+        </div>
+    </div>
+    <div class="food-chart clearfix">
+        <div class="chart-title">营养师分析</div>
+        <div class="chart-intro">
+            <div class="fl">
+                <p><i></i>家庭营养指数</p>
+
+                <p><i></i>标准营养指数</p>
+            </div>
+            <!--<div class="fr">新鲜指数 <span id="zhishu"> 20%</span></div>-->
+            <p class="chart-img"><img src="images/chart01.jpg"/></p>
+            <ul class="chart-nav">
+                <li class="active">水果类</li>
+                <li>豆菌类</li>
+                <li>鱼肉类</li>
+                <li>其他类</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<script src="scripts/jquery-1.8.3.min.js"></script>
+<script src="scripts/md5.js"></script>
+<script src="scripts/jsobox.js"></script>
+<script src="scripts/requestHelper.js"></script>
+<script src="scripts/foodservicebj.js"></script>
+<script src="scripts/simpScroller-min.js"></script>
+<script>
+    var isback = window.sessionStorage.getItem('isback');
+    if(isback == '1'){
+        window.sessionStorage.removeItem('isback');
+        $foodservice.foodlist();
+    }else{
+        $foodservice.foodlist();
+    }
+    $(function () {
+        var zhishu = [45, 1, 8, 0];
+        $('.chart-nav li').each(function (index) {
+            $(this).click(function () {
+                //$('#zhishu').html(zhishu[index] + '%');
+                $(this).removeClass('active').addClass('active').siblings().removeClass('active');
+                $('.chart-img img').attr('src', 'images/chart0' + (index + 1) + '.jpg');
+            });
+        });
+        if (window.addEventListener) {
+            simpScroller(document.querySelector(".foods"), {
+                verticalScroll: true,
+                horizontalScroll: false,
+                hideScrollBar: true,
+                onScrollStart:function(e){
+                    dropload.lock('up');
+                },
+                onScroll:function(e){
+                    dropload.lock('up');
+                },
+                onScrollEnd:function(){
+                    dropload.unlock();
+                }
+            });
+        }
+        var dropload = $('#main').dropload({
+            scrollArea: window,
+            domUp: {                                                            // 上方DOM
+                domClass: 'dropload-up',
+                domRefresh: '<div class="dropload-refresh"><img src="images/img_foodadmin_loading.gif"/></div>',
+                domUpdate: '<div class="dropload-update"><img src="images/img_foodadmin_loading.gif"/></div>',
+                domLoad: '<div class="dropload-load"><img src="images/img_foodadmin_loading.gif"/></div>'
+            },
+            loadUpFn: function (e) {
+                location.reload();
+            }
+        });
+    });
+</script>
+<input type="hidden" id="YZHD_APPID"/>
+<script>
+    var dom=document.getElementById("YZHD_APPID");
+    var phoneNumber;
+    var user = JSON.parse(window.sessionStorage.getItem('user'));
+    if(user){
+        phoneNumber = user.phone;
+        $('.food-add-plus a').each(function(){
+            $(this).attr('href',$(this).attr('href')+'?phoneNumber='+user.phone+'#');
+        });
+    }
+    var userAgent = navigator.userAgent;
+    var isAndroid = userAgent.indexOf('Android') > -1 || userAgent.indexOf('Linux') > -1;
+    var isIOS = !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
+    if (isAndroid) {
+        dom.value ="MB-XXCGZH-0000";
+    }
+    if (isIOS) {
+        dom.value ="MB-XXCGZH-0000";
+    }
+</script>
+<script type="text/javascript">
+    (function() {
+        var report= document.createElement('script');
+        var pro = /file/.test(document.location.protocol)?'http:': document.location.protocol;
+        report.type = 'text/javascript'; report.async = true;
+        report.src = pro+'//resource.haier.net/saas/report.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(report, s);
+    })();
+</script>
+</body>
+</html>
